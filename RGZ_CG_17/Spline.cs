@@ -207,8 +207,7 @@ namespace rgz_cg_self {
 
         public void AddPoint(PointF pt) {
             int id;
-            if (!(id = _points.FindIndex(x => x.X.Equals(pt.X))).Equals(-1))
-            {
+            if (!(id = _points.FindIndex(x => x.X.Equals(pt.X))).Equals(-1)) {
                 _points[id] = new PointF(pt.X, pt.Y);
             }
             else
