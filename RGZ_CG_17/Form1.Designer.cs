@@ -58,6 +58,7 @@
             this.GLControl.Paint += new System.Windows.Forms.PaintEventHandler(this.GLControl_Paint);
             this.GLControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseDown);
             this.GLControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseMove);
+            this.GLControl.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseWheel);
             this.GLControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseUp);
             this.GLControl.Resize += new System.EventHandler(this.GLControl_Resize);
             // 
@@ -155,6 +156,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form";
             this.Text = "V17";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.main_panel.ResumeLayout(false);
             this.main_panel.PerformLayout();
             this.settings_groupBox.ResumeLayout(false);

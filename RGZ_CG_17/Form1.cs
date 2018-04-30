@@ -107,6 +107,27 @@ namespace RGZ_CG_17
             r.Refresh();
         }
 
+        private void CanvasMouseWheel(object sender, MouseEventArgs e)
+        {
+            if (!_initialized) return;
+            if (e.Delta < 0) r.ScaleOut();
+            else r.ScaleIn();
+            r.Refresh();
+        }
+
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool handled = true;
+            switch (e.KeyCode)
+            {
+                case Keys.Q: r.ScaleOut(); break;
+                case Keys.E: r.ScaleIn(); break;
+                case Keys.Delete: s.Clear(); break;
+                default: handled = false; break;
+            }
+            if (handled) r.Refresh();
+        }
+
         private void GLControl_Paint(object sender, PaintEventArgs e)
         {
             if (!_initialized) return;
