@@ -16,7 +16,7 @@ namespace RGZ_CG_17
         public Form()
         {
             InitializeComponent();
-            r = new Renderer(GLC);
+            r = new Renderer(GLControl);
             s = new Spline();
         }
 
@@ -117,7 +117,6 @@ namespace RGZ_CG_17
             r.DrawAxis();
             r.DrawSpline(s);
             r.DrawPoints(s);
-            r.End();
 
             ((GLControl)sender).SwapBuffers();
         }

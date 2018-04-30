@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace rgz_cg_self {
+namespace RGZ_CG_17 { 
     public class Spline {
         private char[] _spl = { ' ', '\n', '\r', '\t' };
         private List<SplineFunction> sp;

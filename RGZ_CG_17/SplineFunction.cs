@@ -1,4 +1,4 @@
-﻿namespace rgz_cg_self {
+﻿namespace RGZ_CG_17 {
     class SplineFunction {
         public float A = 0;
         public float B = 0;

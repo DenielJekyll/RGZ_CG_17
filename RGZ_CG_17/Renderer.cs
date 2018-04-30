@@ -3,8 +3,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace rgz_cg_self
-{
+namespace RGZ_CG_17 {
     public class Renderer {
         private GLControl _g;
         private Color BackgroundColor = Color.White;

@@ -45,10 +45,13 @@
             // 
             // GLControl
             // 
+            this.GLControl.AutoSize = true;
+            this.GLControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.GLControl.BackColor = System.Drawing.Color.Black;
-            this.GLControl.Location = new System.Drawing.Point(1, -2);
+            this.GLControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GLControl.Location = new System.Drawing.Point(0, 0);
             this.GLControl.Name = "GLControl";
-            this.GLControl.Size = new System.Drawing.Size(807, 454);
+            this.GLControl.Size = new System.Drawing.Size(800, 450);
             this.GLControl.TabIndex = 0;
             this.GLControl.VSync = false;
             this.GLControl.Load += new System.EventHandler(this.GLControl_Load);
@@ -158,6 +161,7 @@
             this.settings_groupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accuracyValue_trackBar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
