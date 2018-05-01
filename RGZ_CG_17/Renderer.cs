@@ -120,7 +120,7 @@ namespace RGZ_CG_17 {
             if ((_drawMode & (1 << 1)) != 0) {
                 GL.Color3(Graph2Color);
                 GL.Begin(PrimitiveType.LineStrip);
-                foreach (var pt in s.d_points)
+                foreach (var pt in s.dPoints)
                 {
                     GL.Vertex2(pt.X, pt.Y);
                 }
@@ -130,7 +130,7 @@ namespace RGZ_CG_17 {
             if ((_drawMode & (1 << 2)) != 0) {
                 GL.Color3(Graph3Color);
                 GL.Begin(PrimitiveType.LineStrip);
-                foreach (var pt in s.i_points) {
+                foreach (var pt in s.iPoints) {
                     GL.Vertex2(pt.X, pt.Y);
                 }
                 GL.End();

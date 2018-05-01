@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace RGZ_CG_17 { 
     public class Spline {
-        private char[] _spl = { ' ', '\n', '\r', '\t' };
-        private List<SplineFunction> sp;
+        private char[] _separators = { ' ', '\n', '\r', '\t' };
+        private List<SplineFunction> splinePoints;
         private List<PointF> _points;
         private List<PointF> _pointsView;
-        public List<PointF> d_points;
-        public List<PointF> i_points;
+        public List<PointF> dPoints;
+        public List<PointF> iPoints;
 
         private int _steps = 10;
 
@@ -24,136 +24,83 @@ namespace RGZ_CG_17 {
         public List<PointF> PointsView { get { return _pointsView; } }
 
         public Spline() {
-            sp = new List<SplineFunction>();
+            splinePoints = new List<SplineFunction>();
             _points = new List<PointF>();
             _pointsView = new List<PointF>();
-            d_points = new List<PointF>();
-            i_points = new List<PointF>();
+            dPoints = new List<PointF>();
+            iPoints = new List<PointF>();
         }
 
-        #region Работа с файлами
-
-        private void DumpToFile() {
-            var f = new StreamWriter("R:\\debug_cs.txt");
-            foreach (var pf in sp) {
-                f.WriteLine("{0} {1} {2} {3} {4} {5}", pf.A, pf.B, pf.C, pf.D, pf.H, pf.X);
-            }
-            f.Close();
-        }
-
-        public void LoadFromFile(string filename) {
-            try {
-                var f = new StreamReader(filename);
-                PointF pt;
-                while (!f.EndOfStream) {
-                    string str = f.ReadLine();
-                    string[] data = str.Split(_spl, StringSplitOptions.RemoveEmptyEntries);
-                    float x = float.Parse(data[0]);
-                    float y = float.Parse(data[1]);
-
-                    _points.Add(pt = new PointF(x, y));
-                }
-                f.Close();
-            } catch (Exception e) {
-                MessageBox.Show(e.Message + "\n\n" + e.StackTrace, "Error durind loading");
-            }
-            ApplyChanges();
-        }
-
-        public void SaveToFile(string file1 = "answer.txt", string file2 = "text.txt") {
-            try {
-                var f = new StreamWriter(file1);
-                foreach (var pf in sp) {
-                    f.WriteLine("{0} {1} {2} {3} {4}", pf.A, pf.B, pf.C, pf.D, pf.X);
-                }
-                f.Close();
-                f = new StreamWriter(file2);
-                double ds = sp[0].X;
-
-                for (int i = 1; i < sp.Count; i++) {
-                    for (int j = 0; j < 5; j++) {
-                        ds += 0.2;
-                        f.WriteLine("{0}", Func(i, ds));
-                    }
-                }
-                f.Close();
-            } catch (Exception e) {
-                MessageBox.Show(e.Message + "\n\n" + e.StackTrace, "Error durind saving");
-            }
-        }
-
-        #endregion
-
-        #region Матчасть
+        #region Calculations
 
         private void CreateSF() {
-            sp = new List<SplineFunction>();
+            splinePoints = new List<SplineFunction>();
             SplineFunction prev = null;
             foreach (var pt in _points) {
-                var sp1 = new SplineFunction {
+                var splinePoints1 = new SplineFunction {
                     X = pt.X,
                     A = pt.Y
                 };
                 if (_points.IndexOf(pt) > 0) {
-                    sp1.H = pt.X - prev.X;
+                    splinePoints1.H = pt.X - prev.X;
                 }
-                sp.Add(sp1);
-                prev = sp1;
+                splinePoints.Add(splinePoints1);
+                prev = splinePoints1;
             }
 
-            if (sp.Count == 0)
+            if (splinePoints.Count == 0)
                 throw new InvalidOperationException("List is empty");
-            sp[0].C = 0;
-            sp[sp.Count - 1].C = 0;
+            splinePoints[0].C = 0;
+            splinePoints[splinePoints.Count - 1].C = 0;
         }
 
         public void CountC() {
             float A = 0, B = 0, C = 0, F = 0;
-            float[] a = new float[sp.Count - 1];
-            float[] b = new float[sp.Count - 1];
+            float[] a = new float[splinePoints.Count - 1];
+            float[] b = new float[splinePoints.Count - 1];
             a.Initialize(); 
             b.Initialize();
-            for (int i = 1; i < sp.Count - 1; i++) {
-                A = sp[i].H;
-                B = sp[i + 1].H;
-                float dy = sp[i].A - sp[i - 1].A;
-                float dy1 = sp[i + 1].A - sp[i].A;
+            for (int i = 1; i < splinePoints.Count - 1; i++) {
+                A = splinePoints[i].H;
+                B = splinePoints[i + 1].H;
+                float dy = splinePoints[i].A - splinePoints[i - 1].A;
+                float dy1 = splinePoints[i + 1].A - splinePoints[i].A;
                 C = 2 * (A + B);
                 F = 6 * (dy1 / B - dy / A);
                 float z = (A * a[i - 1] + C);
                 a[i] = -B / z;
                 b[i] = (F - A * b[i - 1]) / z;
             }
-            sp[sp.Count - 2].C = (F - A * b[sp.Count - 2]) / (C + A * a[sp.Count - 2]);
-            for (int i = sp.Count - 2; i >= 1; i--) {
-                sp[i].C = a[i] * sp[i + 1].C + b[i];
+            splinePoints[splinePoints.Count - 2].C = (F - A * b[splinePoints.Count - 2]) / (C + A * a[splinePoints.Count - 2]);
+            for (int i = splinePoints.Count - 2; i >= 1; i--) {
+                splinePoints[i].C = a[i] * splinePoints[i + 1].C + b[i];
             }
         }
 
         private void CountBAD() {
-            sp[0].B = 0;
-            sp[0].D = 0;
-            for (int i = 1, j = 0; i < sp.Count; i++, j++) {
-                sp[i].D = (sp[i].C - sp[j].C);
-                sp[i].D /= sp[i].H;
-                sp[i].B = ((sp[i].A - sp[j].A) / sp[i].H) + (sp[i].H * (2 * sp[i].C + sp[j].C) / 6);
+            splinePoints[0].B = 0;
+            splinePoints[0].D = 0;
+            for (int i = 1, j = 0; i < splinePoints.Count; i++, j++) {
+                splinePoints[i].D = (splinePoints[i].C - splinePoints[j].C);
+                splinePoints[i].D /= splinePoints[i].H;
+                splinePoints[i].B = ((splinePoints[i].A - splinePoints[j].A) / splinePoints[i].H) + (splinePoints[i].H * (2 * splinePoints[i].C + splinePoints[j].C) / 6);
             }
-            for (int i = 0; i < sp.Count; i++) {
-                sp[i].C /= 2;
-                sp[i].D /= 6;
+            for (int i = 0; i < splinePoints.Count; i++) {
+                splinePoints[i].C /= 2;
+                splinePoints[i].D /= 6;
             }
         }
 
         private void CalculatePoints() {
-            int n = _steps * sp.Count;
+            int n = _steps * splinePoints.Count;
             _pointsView = new List<PointF>(n);
-            _pointsView.Add(new PointF(sp[0].X, sp[0].Func()));
-            i_points = new List<PointF>(n);
-            d_points = new List<PointF>(n);
+            _pointsView.Add(new PointF(splinePoints[0].X, splinePoints[0].Func()));
+            iPoints = new List<PointF>(n);
+            dPoints = new List<PointF>(n);
             SplineFunction pf_prev = null;
             float y = 0, y0 = 0, y1;
-            foreach (var pf in sp) {
-                if (sp.IndexOf(pf) > 0) {
+            foreach (var pf in splinePoints) {
+                if (splinePoints.IndexOf(pf) > 0) {
                     float part = (pf.X - pf_prev.X) / _steps;
                     float X = pf_prev.X;
                     y1 = pf.I_Func(X);
@@ -162,9 +109,9 @@ namespace RGZ_CG_17 {
                         y = pf.Func(X);
                         _pointsView.Add(new PointF(X, y));
                         y = pf.D_Func(X);
-                        d_points.Add(new PointF(X, y));
+                        dPoints.Add(new PointF(X, y));
                         y = -y1 + y0 + pf.I_Func(X);
-                        i_points.Add(new PointF(X, y));
+                        iPoints.Add(new PointF(X, y));
                     }
                     y0 = y;
                 }
@@ -174,11 +121,11 @@ namespace RGZ_CG_17 {
         #endregion
 
         private double Func(int i, double ds) {
-            double ret = sp[i].A;
-            ret += sp[i].B * (ds - sp[i].X);
-            ret += sp[i].C * (ds - sp[i].X) * (ds - sp[i].X);
-            ret += sp[i].D * (ds - sp[i].X) * (ds - sp[i].X) * (ds - sp[i].X);
-            return ret;
+            double res = splinePoints[i].A;
+            res += splinePoints[i].B * (ds - splinePoints[i].X);
+            res += splinePoints[i].C * (ds - splinePoints[i].X) * (ds - splinePoints[i].X);
+            res += splinePoints[i].D * (ds - splinePoints[i].X) * (ds - splinePoints[i].X) * (ds - splinePoints[i].X);
+            return res;
         }
 
         public static double Func(double a, double b, double c, double d, double x, double s) {
@@ -209,17 +156,15 @@ namespace RGZ_CG_17 {
             int id;
             if (!(id = _points.FindIndex(x => x.X.Equals(pt.X))).Equals(-1)) {
                 _points[id] = new PointF(pt.X, pt.Y);
-            }
-            else
-                _points.Add(pt);
+            } else _points.Add(pt);
             ApplyChanges();
         }
 
         public void Clear() {
             _points.Clear();
             _pointsView.Clear();
-            d_points.Clear();
-            i_points.Clear();
+            dPoints.Clear();
+            iPoints.Clear();
         }
     }
 }
