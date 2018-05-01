@@ -14,7 +14,7 @@ namespace RGZ_CG_17 {
         private Color Point1Color = Color.Black;
 
         public readonly float ZoomIn = 1.2f;
-        public readonly float ZoomOut = 0.83333f; // 1/1.2
+        public readonly float ZoomOut = 0.83333f;
 
         private int CellSize = 1;
         private int xl, yl;

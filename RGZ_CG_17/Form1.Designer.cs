@@ -58,8 +58,8 @@
             this.GLControl.Paint += new System.Windows.Forms.PaintEventHandler(this.GLControl_Paint);
             this.GLControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseDown);
             this.GLControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseMove);
-            this.GLControl.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseWheel);
             this.GLControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseUp);
+            this.GLControl.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseWheel);
             this.GLControl.Resize += new System.EventHandler(this.GLControl_Resize);
             // 
             // main_panel
@@ -92,6 +92,7 @@
             this.primitive_checkBox.Name = "primitive_checkBox";
             this.primitive_checkBox.Size = new System.Drawing.Size(65, 17);
             this.primitive_checkBox.TabIndex = 3;
+            this.primitive_checkBox.Tag = "2";
             this.primitive_checkBox.Text = "Primitive";
             this.primitive_checkBox.UseVisualStyleBackColor = true;
             this.primitive_checkBox.CheckedChanged += new System.EventHandler(this.spline_checkBox_CheckedChanged);
@@ -103,6 +104,7 @@
             this.derivative_checkBox.Name = "derivative_checkBox";
             this.derivative_checkBox.Size = new System.Drawing.Size(74, 17);
             this.derivative_checkBox.TabIndex = 4;
+            this.derivative_checkBox.Tag = "1";
             this.derivative_checkBox.Text = "Derivative";
             this.derivative_checkBox.UseVisualStyleBackColor = true;
             this.derivative_checkBox.CheckedChanged += new System.EventHandler(this.spline_checkBox_CheckedChanged);
@@ -110,10 +112,13 @@
             // spline_checkBox
             // 
             this.spline_checkBox.AutoSize = true;
+            this.spline_checkBox.Checked = true;
+            this.spline_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.spline_checkBox.Location = new System.Drawing.Point(9, 19);
             this.spline_checkBox.Name = "spline_checkBox";
             this.spline_checkBox.Size = new System.Drawing.Size(55, 17);
             this.spline_checkBox.TabIndex = 2;
+            this.spline_checkBox.Tag = "0";
             this.spline_checkBox.Text = "Spline";
             this.spline_checkBox.UseVisualStyleBackColor = true;
             this.spline_checkBox.CheckedChanged += new System.EventHandler(this.spline_checkBox_CheckedChanged);
