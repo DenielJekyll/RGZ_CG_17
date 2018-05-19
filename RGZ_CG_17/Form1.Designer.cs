@@ -1,4 +1,4 @@
-﻿namespace RGZ_CG_17
+﻿namespace RGZ_CG_31
 {
     partial class Form
     {
@@ -33,11 +33,11 @@
             this.main_panel = new System.Windows.Forms.Panel();
             this.settings_groupBox = new System.Windows.Forms.GroupBox();
             this.primitive_checkBox = new System.Windows.Forms.CheckBox();
-            this.derivative_checkBox = new System.Windows.Forms.CheckBox();
             this.spline_checkBox = new System.Windows.Forms.CheckBox();
             this.accuracyValue_trackBar = new System.Windows.Forms.TrackBar();
             this.accuracyValue_label = new System.Windows.Forms.Label();
             this.accuracyName_label = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.main_panel.SuspendLayout();
             this.settings_groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accuracyValue_trackBar)).BeginInit();
@@ -64,23 +64,23 @@
             // 
             // main_panel
             // 
+            this.main_panel.Controls.Add(this.button1);
             this.main_panel.Controls.Add(this.settings_groupBox);
             this.main_panel.Controls.Add(this.accuracyValue_trackBar);
             this.main_panel.Controls.Add(this.accuracyValue_label);
             this.main_panel.Controls.Add(this.accuracyName_label);
             this.main_panel.Location = new System.Drawing.Point(1, -2);
             this.main_panel.Name = "main_panel";
-            this.main_panel.Size = new System.Drawing.Size(86, 155);
+            this.main_panel.Size = new System.Drawing.Size(86, 166);
             this.main_panel.TabIndex = 1;
             // 
             // settings_groupBox
             // 
             this.settings_groupBox.Controls.Add(this.primitive_checkBox);
-            this.settings_groupBox.Controls.Add(this.derivative_checkBox);
             this.settings_groupBox.Controls.Add(this.spline_checkBox);
             this.settings_groupBox.Location = new System.Drawing.Point(-6, 67);
             this.settings_groupBox.Name = "settings_groupBox";
-            this.settings_groupBox.Size = new System.Drawing.Size(91, 87);
+            this.settings_groupBox.Size = new System.Drawing.Size(91, 62);
             this.settings_groupBox.TabIndex = 2;
             this.settings_groupBox.TabStop = false;
             this.settings_groupBox.Text = "Settings";
@@ -88,26 +88,14 @@
             // primitive_checkBox
             // 
             this.primitive_checkBox.AutoSize = true;
-            this.primitive_checkBox.Location = new System.Drawing.Point(9, 65);
+            this.primitive_checkBox.Location = new System.Drawing.Point(10, 43);
             this.primitive_checkBox.Name = "primitive_checkBox";
-            this.primitive_checkBox.Size = new System.Drawing.Size(65, 17);
+            this.primitive_checkBox.Size = new System.Drawing.Size(61, 17);
             this.primitive_checkBox.TabIndex = 3;
             this.primitive_checkBox.Tag = "2";
-            this.primitive_checkBox.Text = "Primitive";
+            this.primitive_checkBox.Text = "Integral";
             this.primitive_checkBox.UseVisualStyleBackColor = true;
             this.primitive_checkBox.CheckedChanged += new System.EventHandler(this.spline_checkBox_CheckedChanged);
-            // 
-            // derivative_checkBox
-            // 
-            this.derivative_checkBox.AutoSize = true;
-            this.derivative_checkBox.Location = new System.Drawing.Point(9, 42);
-            this.derivative_checkBox.Name = "derivative_checkBox";
-            this.derivative_checkBox.Size = new System.Drawing.Size(74, 17);
-            this.derivative_checkBox.TabIndex = 4;
-            this.derivative_checkBox.Tag = "1";
-            this.derivative_checkBox.Text = "Derivative";
-            this.derivative_checkBox.UseVisualStyleBackColor = true;
-            this.derivative_checkBox.CheckedChanged += new System.EventHandler(this.spline_checkBox_CheckedChanged);
             // 
             // spline_checkBox
             // 
@@ -126,7 +114,7 @@
             // accuracyValue_trackBar
             // 
             this.accuracyValue_trackBar.Location = new System.Drawing.Point(3, 27);
-            this.accuracyValue_trackBar.Maximum = 40;
+            this.accuracyValue_trackBar.Maximum = 100;
             this.accuracyValue_trackBar.Name = "accuracyValue_trackBar";
             this.accuracyValue_trackBar.Size = new System.Drawing.Size(82, 45);
             this.accuracyValue_trackBar.TabIndex = 2;
@@ -151,6 +139,17 @@
             this.accuracyName_label.TabIndex = 2;
             this.accuracyName_label.Text = "Accuracy:";
             // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button1.Location = new System.Drawing.Point(4, 135);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Clear";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -160,7 +159,7 @@
             this.Controls.Add(this.GLControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form";
-            this.Text = "V17";
+            this.Text = "V31";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.main_panel.ResumeLayout(false);
             this.main_panel.PerformLayout();
@@ -180,9 +179,9 @@
         private System.Windows.Forms.Label accuracyName_label;
         private System.Windows.Forms.GroupBox settings_groupBox;
         private System.Windows.Forms.CheckBox primitive_checkBox;
-        private System.Windows.Forms.CheckBox derivative_checkBox;
         private System.Windows.Forms.CheckBox spline_checkBox;
         private System.Windows.Forms.TrackBar accuracyValue_trackBar;
+        private System.Windows.Forms.Button button1;
     }
 }
 

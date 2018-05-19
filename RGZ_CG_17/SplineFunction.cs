@@ -1,4 +1,4 @@
-﻿namespace RGZ_CG_17 {
+﻿namespace RGZ_CG_31 {
     class SplineFunction {
         public float A = 0;
         public float B = 0;
@@ -29,13 +29,6 @@
             res += B * (s - X);
             res += C * (s - X) * (s - X);
             res += D * (s - X) * (s - X) * (s - X);
-            return res;
-        }
-        public float D_Func(float s) {
-            float res = 0;
-            res += B;
-            res += 2 * C * (s - X);
-            res += 3 * D * (s - X) * (s - X);
             return res;
         }
         public float I_Func(float s) {

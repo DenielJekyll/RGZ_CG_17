@@ -3,7 +3,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace RGZ_CG_17 {
+namespace RGZ_CG_31 {
     public class Renderer {
         private GLControl _g;
         private Color BackgroundColor = Color.White;
@@ -112,16 +112,6 @@ namespace RGZ_CG_17 {
                 GL.Color3(Graph1Color);
                 GL.Begin(PrimitiveType.LineStrip);
                 foreach (var pt in s.PointsView) {
-                    GL.Vertex2(pt.X, pt.Y);
-                }
-                GL.End();
-            }
-
-            if ((_drawMode & (1 << 1)) != 0) {
-                GL.Color3(Graph2Color);
-                GL.Begin(PrimitiveType.LineStrip);
-                foreach (var pt in s.dPoints)
-                {
                     GL.Vertex2(pt.X, pt.Y);
                 }
                 GL.End();

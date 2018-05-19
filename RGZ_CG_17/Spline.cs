@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 
-namespace RGZ_CG_17 { 
+namespace RGZ_CG_31 { 
     public class Spline {
         private char[] _separators = { ' ', '\n', '\r', '\t' };
         private List<SplineFunction> splinePoints;
@@ -96,7 +94,6 @@ namespace RGZ_CG_17 {
             _pointsView = new List<PointF>(n);
             _pointsView.Add(new PointF(splinePoints[0].X, splinePoints[0].Func()));
             iPoints = new List<PointF>(n);
-            dPoints = new List<PointF>(n);
             SplineFunction pf_prev = null;
             float y = 0, y0 = 0, y1;
             foreach (var pf in splinePoints) {
@@ -108,8 +105,6 @@ namespace RGZ_CG_17 {
                         X += part;
                         y = pf.Func(X);
                         _pointsView.Add(new PointF(X, y));
-                        y = pf.D_Func(X);
-                        dPoints.Add(new PointF(X, y));
                         y = -y1 + y0 + pf.I_Func(X);
                         iPoints.Add(new PointF(X, y));
                     }

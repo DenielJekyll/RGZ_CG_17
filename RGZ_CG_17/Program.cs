@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RGZ_CG_17 {
+namespace RGZ_CG_31 {
     static class Program {
         /// <summary>
         /// Главная точка входа для приложения.

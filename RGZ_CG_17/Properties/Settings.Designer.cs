@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RGZ_CG_17.Properties
+namespace RGZ_CG_31.Properties
 {
 
 

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using OpenTK;
 
-namespace RGZ_CG_17
+namespace RGZ_CG_31
 {
     public partial class Form : System.Windows.Forms.Form
     {
@@ -122,10 +122,16 @@ namespace RGZ_CG_17
             {
                 case Keys.Q: r.ScaleOut(); break;
                 case Keys.E: r.ScaleIn(); break;
-                case Keys.Delete: s.Clear(); break;
+                case Keys.X: s.Clear(); break;
                 default: handled = false; break;
             }
             if (handled) r.Refresh();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            s.Clear();
+            r.Refresh();
         }
 
         private void GLControl_Paint(object sender, PaintEventArgs e)
